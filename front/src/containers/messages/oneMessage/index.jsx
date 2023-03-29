@@ -29,7 +29,7 @@ const OneMessage = ({ mess, myMessage }) => {
           <span className="point-count">{pointCount}</span>
         </div>
       )}
-      <p>{mess?.message}</p>
+      <p className="message-text">{mess?.message}</p>
       <p
         className={myMessage ? "message-time my-message-time" : "message-time "}
       >

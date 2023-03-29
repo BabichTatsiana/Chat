@@ -76,12 +76,13 @@ body {
   &::-webkit-scrollbar {
     display: none;
   }
-
-  // overflow-y: auto;
   box-sizing: border-box;
   &:focus-visible {
     outline: 0px;
   }
+}
+.message-text {
+  word-wrap: break-word;
 }
 .all-messages-wrapper {
   height: 320px;
