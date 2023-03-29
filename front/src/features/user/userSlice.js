@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { socket as socketIO } from "../../services/socket";
 
 const initialState = {
   userName: {},

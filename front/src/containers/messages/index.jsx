@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { EVENTS, MESSAGES, USERNAME } from "../../constants";
-import { addMessage } from "../../features/counter/userSlice";
+import { EVENTS, MESSAGES } from "../../constants";
+import { addMessage } from "../../features/user/userSlice";
 import { FullScreenIcon, MinScreenIcon } from "../../icons";
 import {
   handleMouseDown,
   handleMouseLeave,
   handleMouseMove,
-  handleMouseUp,
 } from "../../services/resizing";
 import {
   subscribeToSocketEvent,
