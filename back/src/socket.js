@@ -26,6 +26,7 @@ const socket = ({ io }) => {
           message,
           userName,
           time: `${date.getHours()}:${date.getMinutes()}`,
+          id: Math.random(),
         });
       }
     );

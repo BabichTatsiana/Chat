@@ -37,16 +37,13 @@ const Messages = ({ setVisibleWindow }) => {
     return false;
   };
 
-  const handleDataUpdate = ({ roomId, message, userName, time }) => {
+  const handleDataUpdate = ({ roomId, message, userName, time, id }) => {
     setAllMessages((prevMessages) => {
       const isDuplicate = prevMessages.some(
-        (prevMessage) =>
-          prevMessage.message === message &&
-          prevMessage.userName === userName &&
-          prevMessage.time === time
+        (prevMessage) => prevMessage.id === id
       );
       if (!isDuplicate) {
-        return [...prevMessages, { message, userName, time }];
+        return [...prevMessages, { message, userName, time, id }];
       }
       return prevMessages;
     });
