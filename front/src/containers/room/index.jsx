@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { EVENTS, GENERAL, USERNAME } from "../../constants";
-import { addUserName, getRoomId } from "../../features/counter/userSlice";
+import { addUserName, getRoomId } from "../../features/user/userSlice";
 import {
-  emitData,
+  newRoom,
   joinRoom,
   subscribeToSocketEvent,
 } from "../../services/socket";
@@ -13,13 +13,14 @@ const Room = () => {
   const [roomConnected, setRoomConnected] = useState(null);
   const [joinedRoom, setJoinedRoom] = useState("");
   const dispatch = useDispatch();
+
   const handleDataUpdate = (newData) => {
     setRoomConnected(newData);
     dispatch(getRoomId(newData));
   };
 
   const handleClick = () => {
-    emitData(GENERAL);
+    newRoom(GENERAL);
     dispatch(addUserName({ userName }));
   };
 

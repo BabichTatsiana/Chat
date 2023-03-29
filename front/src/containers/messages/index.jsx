@@ -17,15 +17,31 @@ import NewMessageForm from "./newMessageForm";
 import OneMessage from "./oneMessage";
 import TabContainer from "./tabContainer";
 
+const defaultChatWidth = 360;
+const defaultChatHeight = 400;
+const startXPosDrag = 0;
+const startYPosDrag = 0;
+const startWidthSize = 0;
+const startHeightSize = 0;
+
 const Messages = ({ setVisibleWindow }) => {
   const dispatch = useDispatch();
   const [allMessages, setAllMessages] = useState(MESSAGES);
   const [tab, setTab] = useState(0);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [windowSize, setWindowSize] = useState({ width: 360, height: 400 });
+  const [isSubscribedToSocket, setSubscribedToSocket] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: defaultChatWidth,
+    height: defaultChatHeight,
+  });
   const [resizing, setResizing] = useState(false);
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-  const [startSize, setStartSize] = useState({ width: 0, height: 0 });
+  const [startPos, setStartPos] = useState({
+    x: startXPosDrag,
+    y: startYPosDrag,
+  });
+  const [startSize, setStartSize] = useState({
+    width: startWidthSize,
+    height: startHeightSize,
+  });
 
   const userName = useSelector((state) => state.user.userName);
 
@@ -36,7 +52,7 @@ const Messages = ({ setVisibleWindow }) => {
     return false;
   };
 
-  const handleDataUpdate = ({ roomId, message, userName, time, id }) => {
+  const handleMessagesUpdate = ({ roomId, message, userName, time, id }) => {
     setAllMessages((prevMessages) => {
       const isDuplicate = prevMessages.some(
         (prevMessage) => prevMessage.id === id
@@ -51,12 +67,15 @@ const Messages = ({ setVisibleWindow }) => {
   };
 
   useEffect(() => {
-    if (!isSubscribed) {
-      subscribeToSocketEvent(EVENTS.SERVER.ROOM_MESSAGE, handleDataUpdate);
-      setIsSubscribed(true);
+    if (!isSubscribedToSocket) {
+      subscribeToSocketEvent(EVENTS.SERVER.ROOM_MESSAGE, handleMessagesUpdate);
+      setSubscribedToSocket(true);
     }
     return () => {
-      unsubscribeFromSocketEvent(EVENTS.SERVER.ROOM_MESSAGE, handleDataUpdate);
+      unsubscribeFromSocketEvent(
+        EVENTS.SERVER.ROOM_MESSAGE,
+        handleMessagesUpdate
+      );
     };
   }, []);
 

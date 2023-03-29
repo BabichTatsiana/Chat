@@ -13,7 +13,7 @@ export const unsubscribeFromSocketEvent = (eventName, callback) => {
   socket.off(eventName, callback);
 };
 
-export const emitData = (data) => {
+export const newRoom = (data) => {
   socket.emit(EVENTS.CLIENT.CREATE_ROOM, data);
   socket.on(EVENTS.SERVER.JOINED_ROOM, data);
 };
